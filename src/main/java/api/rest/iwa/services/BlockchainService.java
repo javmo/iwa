@@ -67,7 +67,6 @@ public class BlockchainService {
 
     public BalanceDTO getBalance(String address) throws IOException, InterruptedException, ExecutionException {
 		BigDecimal balance = getBalanceEther(web3j, address);
-		System.out.println("balacne eth: " + balance);
 
 		return new BalanceDTO(address, balance);
     }
@@ -147,11 +146,6 @@ public class BlockchainService {
     public TransactionReceipt demoTransfer(String fromAddress, String toAddress, BigInteger amountWei)
 			throws Exception
 	{
-		System.out.println("Accounts[1] (to address) " + toAddress + "\n" + 
-				"Balance before Tx: " + getBalanceEther(web3j, toAddress) + "\n");
-
-		System.out.println("Transfer " + weiToEther(amountWei) + " Ether to account");
-
 	
 		EthGetTransactionCount transactionCount = web3j
 				.ethGetTransactionCount(fromAddress, DefaultBlockParameterName.LATEST)
@@ -159,7 +153,6 @@ public class BlockchainService {
 				.get();
 
 		BigInteger nonce = transactionCount.getTransactionCount();
-		System.out.println("Nonce for sending address (coinbase): " + nonce);
 
 	
 		Transaction transaction = Transaction
@@ -180,12 +173,9 @@ public class BlockchainService {
 		String txHash = response.getTransactionHash();		
 		System.out.println("Tx hash: " + txHash);
 
-
 		TransactionReceipt receipt = waitForReceipt(web3j, txHash);
-		
 		BigInteger gasUsed = receipt.getCumulativeGasUsed();
 
-		System.out.println("Balance after Tx: " + getBalanceEther(web3j, toAddress));
 		return receipt;
 	}
 

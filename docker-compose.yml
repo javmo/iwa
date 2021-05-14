@@ -1,12 +1,29 @@
 version: '2'
 
 services:
-  etherum-client:
+  ethereum:
     image: ethereum/client-go:stable
+    container_name: ethereum
     ports:
       - "30303:30303"
       - "8545:8545"
     volumes:
       - /Users/javmo/Documents/Workspace/ethdocker:/tmp
     command: --rpc --rpcaddr "0.0.0.0" --rpcapi="db,eth,net,web3,personal" --rpccorsdomain "*" --allow-insecure-unlock --dev
-    
+    networks:
+      - app-network
+  db:
+    image: mongo
+    container_name: db
+    restart: unless-stopped
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=iwa
+      - MONGO_INITDB_ROOT_PASSWORD=iwa
+      - MONGO_INITDB_DATABASE=iwa
+    ports: 
+      - 27017:27017
+    networks:
+       - app-network
+networks:
+  app-network:
+    driver: bridge
