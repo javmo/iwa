@@ -1,6 +1,26 @@
 version: '2'
 
 services:
+  backend:
+    image: javmo94/iwa:latest
+    container_name: backend
+    environment:
+      SPRING_APPLICATION_JSON: '{
+       "server.port": "8083",
+       "server.contextPath": "/api",
+       "spring.data.mongodb.uri": "mongodb://iwa:iwa@db:27017/iwa?authSource=admin",
+       "web3j.client-address": "http://ethereum:8545",
+       "blockchain.propeties.gas-price": "1",
+       "blockchain.propeties.gas-limit": "2000000"
+      }'
+    ports:
+      - "8083:8083"
+    depends_on: 
+      - db
+      - ethereum
+    networks:
+      - app-network
+
   ethereum:
     image: ethereum/client-go:stable
     container_name: ethereum
@@ -9,7 +29,7 @@ services:
       - "8545:8545"
     volumes:
       - /Users/javmo/Documents/Workspace/ethdocker:/tmp
-    command: --rpc --rpcaddr "0.0.0.0" --rpcapi="db,eth,net,web3,personal" --rpccorsdomain "*" --allow-insecure-unlock --dev
+    command: --rpc --rpcaddr "0.0.0.0" --rpcapi="db,eth,net,web3,personal" --rpccorsdomain "*" --allow-insecure-unlock --http.addr=0.0.0.0 --http.vhosts=* --http.corsdomain=* --dev 
     networks:
       - app-network
   db:
