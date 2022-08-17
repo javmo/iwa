@@ -1,17 +1,47 @@
 pipeline {
   agent {
-    docker {
-      image 'maven:3.8.1-adoptopenjdk-11'
-      args '-v /root/.m2:/root/.m2'
+    node {
+      label 'agent1'
     }
 
   }
   stages {
-    stage('Build') {
+    stage('Clone') {
       steps {
-        sh 'mvn -B -DskipTests clean package'
+        git(url: 'https://bitbucket.org/javmo94/iwa', branch: 'master')
+      }
+    }
+    stage('Build') {
+      parallel {
+        stage('Build') {
+          steps {
+            sh 'mvn -B -DskipTests clean package'
+          }
+        }
+        stage('P1') {
+          steps {
+            sh '''date
+echo run parallel!!'''
+          }
+        }
+        stage('P2') {
+          steps {
+            sh '''date
+echo run parallel!!'''
+          }
+        }
+      }
+    }
+    stage('Packaging') {
+      steps {
+        sh '''pwd
+cd ./docker
+docker build -t javmo94/iwa .
+docker images
+'''
       }
     }
 
+    }
   }
 }
