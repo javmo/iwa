@@ -10,7 +10,6 @@ pipeline {
     stage('Build') {
       steps {
         sh 'mvn -B -DskipTests clean package'
-        sh 'sh docker build -t javmo94/iwa .'
       }
     }
 
