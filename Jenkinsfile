@@ -13,7 +13,6 @@ pipeline {
         sh 'mvn clean validate compile install'
       }
     }
-
     stage('Docker Build') {
       agent any
       steps {
