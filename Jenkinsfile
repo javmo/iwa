@@ -17,9 +17,12 @@ pipeline {
 
     stage('build docker') {
       steps {
-        sh 'dockerImage = docker.build'
+        sh 'DOCKER_IMAGE = docker.build'
       }
     }
 
+  }
+  environment {
+    DOCKER_IMAGE = ''
   }
 }
