@@ -17,7 +17,6 @@ pipeline {
 
     stage('Docker Build') {
       steps {
-        sh 'def customImage = docker.build("iwa:lastet")'
         node(label: 'build-iamge') {
           script {
             docker.build("iwa:lastet")
