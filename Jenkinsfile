@@ -21,10 +21,10 @@ pipeline {
     }
 
     stage('Login') {
-      agent any 
-        environment {
-          DOCKERHUB_CREDENTIALS = credentials('dockerhub-javmo94')
-        }
+      agent any
+      environment {
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-javmo94')
+      }
       steps {
         sh 'sh \'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin\''
       }
@@ -36,7 +36,6 @@ pipeline {
         sh 'sh \'docker logout\''
       }
     }
-    
 
   }
 }
