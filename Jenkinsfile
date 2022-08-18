@@ -15,17 +15,5 @@ pipeline {
       }
     }
 
-    stage('Docker Build') {
-      steps {
-        node(label: 'build-iamge') {
-          script {
-            docker.build("iwa:lastet")
-          }
-
-        }
-
-      }
-    }
-
   }
 }
