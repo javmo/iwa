@@ -1,5 +1,8 @@
 pipeline {
   agent any
+  	environment {
+		DOCKERHUB_CREDENTIALS=credentials('dockerhub-javmo94')
+	}
   stages {
     stage('Maven Install') {
       agent {
