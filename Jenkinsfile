@@ -16,6 +16,9 @@ pipeline {
 
     stage('Docker Build') {
       agent any
+        environment {
+          DOCKERHUB_CREDENTIALS = credentials('dockerhub-javmo94')
+             }
       steps {
         sh 'docker build -t javmo94/iwa:latest .'
       }
@@ -35,7 +38,5 @@ pipeline {
     }
 
   }
-  environment {
-    DOCKERHUB_CREDENTIALS = credentials('dockerhub-javmo94')
-  }
+
 }
