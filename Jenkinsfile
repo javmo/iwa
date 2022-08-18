@@ -15,5 +15,11 @@ pipeline {
       }
     }
 
+    stage('build docker') {
+      steps {
+        sh 'dockerImage = docker.build'
+      }
+    }
+
   }
 }
