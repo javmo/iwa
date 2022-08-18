@@ -36,6 +36,6 @@ pipeline {
 
   }
   environment {
-    DOCKERHUB_CREDENTIALS = 'dockerhub-javmo94'
+    DOCKERHUB_CREDENTIALS = '${dockerhub-javmo94}'
   }
 }
