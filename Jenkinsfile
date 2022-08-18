@@ -6,10 +6,10 @@ pipeline {
         docker {
           image 'maven:3.8.1-adoptopenjdk-11'
           args '-v /root/.m2:/root/.m2'
-                environment {
+        }
+         environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-javmo94')
       }
-        }
 
       }
       steps {
