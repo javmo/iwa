@@ -21,5 +21,21 @@ pipeline {
       }
     }
 
+    stage('Login') {
+      steps {
+        sh 'sh \'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin\''
+      }
+    }
+
+    stage('Push') {
+      steps {
+        sh 'sh \'docker push javmo94/iwa:latest\''
+        sh 'sh \'docker logout\''
+      }
+    }
+
+  }
+  environment {
+    DOCKERHUB_CREDENTIALS = 'dockerhub-javmo94'
   }
 }
