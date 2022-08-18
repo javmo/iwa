@@ -9,9 +9,6 @@ pipeline {
         }
 
       }
-      environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-javmo94')
-      }
       steps {
         sh 'mvn -B -DskipTests clean package'
       }
@@ -25,7 +22,9 @@ pipeline {
 
     stage('Login') {
       steps {
-        sh 'sh \'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin\''
+        withCredentials([usernamePassword(credentialsId: "${JENKINS_DOCKER_CREDENTIALS_ID}", usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+          sh 'sh \'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin\''
+        }
       }
     }
 
