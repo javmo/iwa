@@ -6,6 +6,9 @@ pipeline {
         docker {
           image 'maven:3.8.1-adoptopenjdk-11'
           args '-v /root/.m2:/root/.m2'
+                environment {
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-javmo94')
+      }
         }
 
       }
@@ -21,10 +24,6 @@ pipeline {
     }
 
     stage('Login') {
-      agent any
-      environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-javmo94')
-      }
       steps {
         sh 'sh \'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin\''
       }
