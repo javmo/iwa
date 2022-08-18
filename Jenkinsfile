@@ -17,7 +17,7 @@ pipeline {
 
     stage('Docker Build') {
       steps {
-        sh 'docker build -t javmo94/iwa:latest .'
+        sh 'def customImage = docker.build("iwa:lastet")'
       }
     }
 
