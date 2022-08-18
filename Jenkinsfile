@@ -10,7 +10,7 @@ pipeline {
 
       }
       steps {
-        sh 'mvn clean validate compile install'
+        sh 'mvn -B -DskipTests clean package'
       }
     }
 
