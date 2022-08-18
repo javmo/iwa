@@ -13,9 +13,11 @@ pipeline {
         sh 'mvn clean validate compile install'
       }
     }
+
     stage('Docker Build') {
       agent any
       steps {
+        sh 'mvn -B -DskipTests clean package'
         sh 'docker build -t javmo94/iwa:latest .'
       }
     }
