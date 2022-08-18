@@ -19,6 +19,10 @@ pipeline {
         sh 'docker build -t javmo94/iwa:latest .'
       }
     }
+    agent any {
+      environment {
+    DOCKERHUB_CREDENTIALS = credentials('dockerhub-javmo94')
+  }
 
     stage('Login') {
       steps {
@@ -32,9 +36,8 @@ pipeline {
         sh 'sh \'docker logout\''
       }
     }
+    }
+    
 
-  }
-  environment {
-    DOCKERHUB_CREDENTIALS = credentials('dockerhub-javmo94')
   }
 }
