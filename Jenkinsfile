@@ -22,8 +22,8 @@ pipeline {
 
     stage('Push') {
       steps {
-        sh 'sh \'docker push javmo94/iwa:latest\''
-        sh 'sh \'docker logout\''
+        sh 'docker push javmo94/iwa:latest'
+        sh 'docker logout'
       }
     }
 
