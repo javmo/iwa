@@ -20,12 +20,6 @@ pipeline {
       }
     }
 
-    stage('Login') {
-      steps {
-        sh 'sh \'echo $DOCKER_PSW | docker login -u $DOCKER_USR --password-stdin\''
-      }
-    }
-
     stage('Push') {
       steps {
         sh 'sh \'docker push javmo94/iwa:latest\''
@@ -33,8 +27,5 @@ pipeline {
       }
     }
 
-  }
-  environment {
-    DOCKER = credentials('dockerhub-javmo94')
   }
 }
