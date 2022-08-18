@@ -15,6 +15,7 @@ pipeline {
     }
 
     stage('Docker Build') {
+    agent {
       steps {
         sh 'docker build -t javmo94/iwa:latest .'
       }
@@ -32,6 +33,8 @@ pipeline {
         sh 'docker logout'
       }
     }
+    }
+    
 
   }
 }
