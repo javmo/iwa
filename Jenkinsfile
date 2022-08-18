@@ -20,6 +20,12 @@ pipeline {
       }
     }
 
+    stage('Login') {
+      steps {
+        sh 'docker login'
+      }
+    }
+
     stage('Push') {
       steps {
         sh 'docker push javmo94/iwa:latest'
