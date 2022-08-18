@@ -1,5 +1,9 @@
 pipeline {
   agent any
+  enviroment {
+    DOCKER = credentials('dockerhub-javmo94')
+  }
+  
   stages {
     stage('Maven Install') {
       agent {
@@ -22,9 +26,7 @@ pipeline {
 
     stage('Login') {
       steps {
-        withCredentials(bindings: [usernamePassword(credentialsId: "${dockerhub-javmo94}", usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-          sh 'sh \'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin\''
-        }
+        sh 'sh \'echo $DOCKER_PSW | docker login -u $DOCKER_USR --password-stdin\''
 
       }
     }
