@@ -37,7 +37,4 @@ pipeline {
     }
 
   }
-  environment {
-    JENKINS_DOCKER_CREDENTIALS_ID = 'dockerhub-javmo94'
-  }
 }
