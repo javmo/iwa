@@ -17,7 +17,10 @@ pipeline {
 
     stage('build docker') {
       steps {
-        node(label: 'docker')
+        node(label: 'docker') {
+          sh 'docker build'
+        }
+
       }
     }
 
