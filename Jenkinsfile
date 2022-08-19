@@ -16,6 +16,7 @@ pipeline {
     }
 
     stage('build docker') {
+    agent any
       steps {
         script {
           wbs = docker.build("iwa")
