@@ -17,8 +17,8 @@ pipeline {
 
     stage('build docker') {
       steps {
-        node(label: 'any') {
-          sh 'docker build'
+        script {
+          wbs = docker.build("iwa")
         }
 
       }
