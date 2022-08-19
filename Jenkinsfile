@@ -4,9 +4,14 @@ pipeline {
     node { 
       label 'docker'
     }
+    node {
+      label 'maven'
+        docker {
+          args '-v /root/.m2:/root/.m2'
+          image 'maven:3.6.0-jdk-11-slim'
+        }
+    } 
   }
-  tools {maven 'maven'}
- 
   stages {
     stage ('Checkout Code') {
       steps {
