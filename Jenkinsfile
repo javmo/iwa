@@ -10,13 +10,6 @@ pipeline {
 
   }
   stages {
-    stage ('Verify Tool'){
-      steps {
-          parallel (
-            docker: { sh "docker -v" }
-          )
-      }
-    }
     stage('Build') {
       steps {
         echo 'Starting Build Step'
