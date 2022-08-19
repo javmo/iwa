@@ -1,7 +1,7 @@
 pipeline {
   agent none
   stages {
-    stage('Maven Install') {
+    stage('Build Maven') {
       agent {
         docker {
           image 'maven:3.8.1-adoptopenjdk-11'
