@@ -8,21 +8,16 @@ pipeline {
   }
   stages {
     stage('Build') {
-      parallel {
-        stage('Build') {
-          steps {
-            echo 'Starting Build Step'
-            sh 'mvn -B -DskipTests clean package'
-            echo 'Build step complete'
-          }
-        }
+      steps {
+        echo 'Starting Build Step'
+        sh 'mvn -B -DskipTests clean package'
+        echo 'Build step complete'
+      }
+    }
 
-        stage('') {
-          steps {
-            node(label: 'docker')
-          }
-        }
-
+    stage('build docker') {
+      steps {
+        node(label: 'docker')
       }
     }
 
