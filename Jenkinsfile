@@ -14,25 +14,15 @@ pipeline {
       }
     }
 
-    stage('Docker Build') {
+    stage('Docker Build & Push') {
       agent any
       environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-javmo94')
       }
       steps {
         sh 'docker build -t javmo94/iwa:latest .'
+        echo 'Build image finished'
         sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-      }
-    }
-
-    stage('Login') {
-      steps {
-        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-      }
-    }
-
-    stage('Push') {
-      steps {
         sh 'docker push javmo94/iwa:latest'
         sh 'docker logout'
       }
