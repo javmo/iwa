@@ -13,7 +13,13 @@ pipeline {
         sh 'mvn -B -DskipTests clean package'
       }
     }
-    stage('Test') {}
+    stage('Test') {
+    agent any
+      environment {
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-javmo94')
+      }
+    
+    }
 
     stage('Docker Build & Push ECS') {
       agent any
@@ -28,7 +34,13 @@ pipeline {
         sh 'docker logout'
       }
     }
-     stage('Deploy') {}
+     stage('Deploy') {
+     agent any
+      environment {
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-javmo94')
+      }
+     
+     }
 
   }
 }
