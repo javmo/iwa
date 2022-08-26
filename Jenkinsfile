@@ -31,11 +31,6 @@ pipeline {
         sh 'docker push javmo94/iwa:latest'
         sh 'docker logout'
       }
-      stage('Deploy') {
-      agent any
-      environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-javmo94')
-      }
     }
 
   }
