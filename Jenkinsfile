@@ -13,12 +13,17 @@ pipeline {
         sh 'mvn -B -DskipTests clean package'
       }
     }
-    stage('Test') {
-    agent any
-      environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-javmo94')
+stage('Test') {
+      agent {
+        docker {
+          image 'maven:3.8.1-adoptopenjdk-11'
+          args '-v /root/.m2:/root/.m2'
+        }
+
       }
-    
+      steps {
+        sh 'mvn -B -DskipTests clean package'
+      }
     }
 
     stage('Docker Build & Push ECS') {
@@ -34,13 +39,5 @@ pipeline {
         sh 'docker logout'
       }
     }
-     stage('Deploy') {
-     agent any
-      environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-javmo94')
-      }
-     
-     }
-
   }
 }
