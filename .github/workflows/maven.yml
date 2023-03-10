@@ -31,4 +31,4 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: your-docker-registry/your-docker-image:latest
+        tags: javmo94/iwa:latest
